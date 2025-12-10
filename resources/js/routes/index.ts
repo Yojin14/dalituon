@@ -1,87 +1,237 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../wayfinder'
 /**
- * Simple route helpers - manual replacement for Wayfinder
- * These match the Laravel routes defined in routes/web.php and routes/settings.php
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::login
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:47
+ * @route '/login'
  */
+export const login = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: login.url(options),
+    method: 'get',
+})
 
-type RouteObject = {
-    url: string;
-    method?: string;
-};
+login.definition = {
+    methods: ["get","head"],
+    url: '/login',
+} satisfies RouteDefinition<["get","head"]>
 
-// Helper to create route objects
-function route(url: string, method: string = 'get'): RouteObject {
-    return { url, method };
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::login
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:47
+ * @route '/login'
+ */
+login.url = (options?: RouteQueryOptions) => {
+    return login.definition.url + queryParams(options)
 }
 
-// Main routes
-export const home = () => route('/');
-export const dashboard = () => route('/dashboard');
-export const login = () => route('/login');
-export const register = () => route('/register');
-export const logout = () => route('/logout', 'post');
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::login
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:47
+ * @route '/login'
+ */
+login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: login.url(options),
+    method: 'get',
+})
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::login
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:47
+ * @route '/login'
+ */
+login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: login.url(options),
+    method: 'head',
+})
 
-// Course routes - import from courses subdirectory
-import * as coursesModule from './courses';
-export const courses = coursesModule;
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::logout
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:100
+ * @route '/logout'
+ */
+export const logout = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: logout.url(options),
+    method: 'post',
+})
 
-// Leaderboards
-export const leaderboards = () => route('/leaderboards');
+logout.definition = {
+    methods: ["post"],
+    url: '/logout',
+} satisfies RouteDefinition<["post"]>
 
-// Settings routes
-export const profile = {
-    edit: () => route('/settings/profile'),
-    update: () => route('/settings/profile', 'patch'),
-    destroy: () => route('/settings/profile', 'delete'),
-};
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::logout
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:100
+ * @route '/logout'
+ */
+logout.url = (options?: RouteQueryOptions) => {
+    return logout.definition.url + queryParams(options)
+}
 
-export const userPassword = {
-    edit: () => route('/settings/password'),
-    update: () => route('/settings/password', 'put'),
-};
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::logout
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:100
+ * @route '/logout'
+ */
+logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: logout.url(options),
+    method: 'post',
+})
 
-export const appearance = {
-    edit: () => route('/settings/appearance'),
-};
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+export const register = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: register.url(options),
+    method: 'get',
+})
 
-export const twoFactor = {
-    show: () => route('/settings/two-factor'),
-    enable: () => route('/settings/two-factor', 'post'),
-    disable: () => route('/settings/two-factor', 'delete'),
-    confirm: () => route('/settings/two-factor/confirm', 'post'),
-    qrCode: () => route('/settings/two-factor/qr-code'),
-    secretKey: () => route('/settings/two-factor/secret-key'),
-    recoveryCodes: () => route('/settings/two-factor/recovery-codes'),
-    regenerateRecoveryCodes: () =>
-        route('/settings/two-factor/recovery-codes', 'post'),
-};
+register.definition = {
+    methods: ["get","head"],
+    url: '/register',
+} satisfies RouteDefinition<["get","head"]>
 
-// Auth routes (Fortify)
-export const password = {
-    email: () => route('/forgot-password', 'post'),
-    reset: () => route('/reset-password', 'post'),
-    update: () => route('/reset-password', 'put'),
-    confirm: () => route('/password/confirm', 'post'),
-    request: () => route('/forgot-password'),
-};
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.url = (options?: RouteQueryOptions) => {
+    return register.definition.url + queryParams(options)
+}
 
-export const verification = {
-    send: () => route('/email/verification-notification', 'post'),
-    notice: () => route('/email/verify'),
-};
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: register.url(options),
+    method: 'get',
+})
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::register
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41
+ * @route '/register'
+ */
+register.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: register.url(options),
+    method: 'head',
+})
 
-// Export all routes for convenience
-export default {
-    home,
-    dashboard,
-    login,
-    register,
-    logout,
-    courses,
-    leaderboards,
-    profile,
-    userPassword,
-    appearance,
-    twoFactor,
-    password,
-    verification,
-};
+/**
+ * @see routes/web.php:7
+ * @route '/'
+ */
+export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: home.url(options),
+    method: 'get',
+})
+
+home.definition = {
+    methods: ["get","head"],
+    url: '/',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:7
+ * @route '/'
+ */
+home.url = (options?: RouteQueryOptions) => {
+    return home.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:7
+ * @route '/'
+ */
+home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: home.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:7
+ * @route '/'
+ */
+home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: home.url(options),
+    method: 'head',
+})
+
+/**
+ * @see routes/web.php:14
+ * @route '/dashboard'
+ */
+export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: dashboard.url(options),
+    method: 'get',
+})
+
+dashboard.definition = {
+    methods: ["get","head"],
+    url: '/dashboard',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:14
+ * @route '/dashboard'
+ */
+dashboard.url = (options?: RouteQueryOptions) => {
+    return dashboard.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:14
+ * @route '/dashboard'
+ */
+dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: dashboard.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:14
+ * @route '/dashboard'
+ */
+dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: dashboard.url(options),
+    method: 'head',
+})
+
+/**
+ * @see routes/web.php:54
+ * @route '/leaderboards'
+ */
+export const leaderboards = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: leaderboards.url(options),
+    method: 'get',
+})
+
+leaderboards.definition = {
+    methods: ["get","head"],
+    url: '/leaderboards',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:54
+ * @route '/leaderboards'
+ */
+leaderboards.url = (options?: RouteQueryOptions) => {
+    return leaderboards.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:54
+ * @route '/leaderboards'
+ */
+leaderboards.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: leaderboards.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:54
+ * @route '/leaderboards'
+ */
+leaderboards.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: leaderboards.url(options),
+    method: 'head',
+})

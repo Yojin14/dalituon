@@ -1,30 +1,39 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 /**
- * Register routes
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:53
+ * @route '/register'
  */
-type RouteObject = {
-    url: string;
-    method?: string;
-    form?: () => { action: string; method: string };
-};
+export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
 
-type RouteFunction = (() => RouteObject) & {
-    form: () => { action: string; method: string };
-};
+store.definition = {
+    methods: ["post"],
+    url: '/register',
+} satisfies RouteDefinition<["post"]>
 
-function route(url: string, method: string = 'get'): RouteFunction {
-    const routeFn = (): RouteObject => ({ url, method });
-    
-    // Add form() method directly to the function for Inertia Form component
-    routeFn.form = () => ({
-        action: url,
-        method: method.toUpperCase(),
-    });
-    
-    return routeFn;
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:53
+ * @route '/register'
+ */
+store.url = (options?: RouteQueryOptions) => {
+    return store.definition.url + queryParams(options)
 }
 
-export const store = route('/register', 'post');
+/**
+* @see \Laravel\Fortify\Http\Controllers\RegisteredUserController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/RegisteredUserController.php:53
+ * @route '/register'
+ */
+store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+const register = {
+    store: Object.assign(store, store),
+}
 
-export default {
-    store,
-};
+export default register

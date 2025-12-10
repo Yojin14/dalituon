@@ -1,30 +1,39 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
- * Password confirmation routes
+* @see \Laravel\Fortify\Http\Controllers\ConfirmablePasswordController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/ConfirmablePasswordController.php:51
+ * @route '/user/confirm-password'
  */
-type RouteObject = {
-    url: string;
-    method?: string;
-    form?: () => { action: string; method: string };
-};
+export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
 
-type RouteFunction = (() => RouteObject) & {
-    form: () => { action: string; method: string };
-};
+store.definition = {
+    methods: ["post"],
+    url: '/user/confirm-password',
+} satisfies RouteDefinition<["post"]>
 
-function route(url: string, method: string = 'get'): RouteFunction {
-    const routeFn = (): RouteObject => ({ url, method });
-    
-    // Add form() method directly to the function for Inertia Form component
-    routeFn.form = () => ({
-        action: url,
-        method: method.toUpperCase(),
-    });
-    
-    return routeFn;
+/**
+* @see \Laravel\Fortify\Http\Controllers\ConfirmablePasswordController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/ConfirmablePasswordController.php:51
+ * @route '/user/confirm-password'
+ */
+store.url = (options?: RouteQueryOptions) => {
+    return store.definition.url + queryParams(options)
 }
 
-export const store = route('/user/confirm-password', 'post');
+/**
+* @see \Laravel\Fortify\Http\Controllers\ConfirmablePasswordController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/ConfirmablePasswordController.php:51
+ * @route '/user/confirm-password'
+ */
+store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+const confirm = {
+    store: Object.assign(store, store),
+}
 
-export default {
-    store,
-};
+export default confirm

@@ -1,30 +1,39 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../../wayfinder'
 /**
- * Two-factor login routes
+* @see \Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/TwoFactorAuthenticatedSessionController.php:56
+ * @route '/two-factor-challenge'
  */
-type RouteObject = {
-    url: string;
-    method?: string;
-    form?: () => { action: string; method: string };
-};
+export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
 
-type RouteFunction = (() => RouteObject) & {
-    form: () => { action: string; method: string };
-};
+store.definition = {
+    methods: ["post"],
+    url: '/two-factor-challenge',
+} satisfies RouteDefinition<["post"]>
 
-function route(url: string, method: string = 'get'): RouteFunction {
-    const routeFn = (): RouteObject => ({ url, method });
-    
-    // Add form() method directly to the function for Inertia Form component
-    routeFn.form = () => ({
-        action: url,
-        method: method.toUpperCase(),
-    });
-    
-    return routeFn;
+/**
+* @see \Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/TwoFactorAuthenticatedSessionController.php:56
+ * @route '/two-factor-challenge'
+ */
+store.url = (options?: RouteQueryOptions) => {
+    return store.definition.url + queryParams(options)
 }
 
-export const store = route('/two-factor-challenge', 'post');
+/**
+* @see \Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/TwoFactorAuthenticatedSessionController.php:56
+ * @route '/two-factor-challenge'
+ */
+store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+const login = {
+    store: Object.assign(store, store),
+}
 
-export default {
-    store,
-};
+export default login

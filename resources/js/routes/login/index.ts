@@ -1,30 +1,39 @@
+import { queryParams, type RouteQueryOptions, type RouteDefinition } from './../../wayfinder'
 /**
- * Login routes
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
+ * @route '/login'
  */
-type RouteObject = {
-    url: string;
-    method?: string;
-    form?: () => { action: string; method: string };
-};
+export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
 
-type RouteFunction = (() => RouteObject) & {
-    form: () => { action: string; method: string };
-};
+store.definition = {
+    methods: ["post"],
+    url: '/login',
+} satisfies RouteDefinition<["post"]>
 
-function route(url: string, method: string = 'get'): RouteFunction {
-    const routeFn = (): RouteObject => ({ url, method });
-    
-    // Add form() method directly to the function for Inertia Form component
-    routeFn.form = () => ({
-        action: url,
-        method: method.toUpperCase(),
-    });
-    
-    return routeFn;
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
+ * @route '/login'
+ */
+store.url = (options?: RouteQueryOptions) => {
+    return store.definition.url + queryParams(options)
 }
 
-export const store = route('/login', 'post');
+/**
+* @see \Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::store
+ * @see vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58
+ * @route '/login'
+ */
+store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: store.url(options),
+    method: 'post',
+})
+const login = {
+    store: Object.assign(store, store),
+}
 
-export default {
-    store,
-};
+export default login

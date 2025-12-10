@@ -1,1 +1,0 @@
-function o(t,s="get"){const e=()=>({url:t,method:s});return e.form=()=>({action:t,method:s.toUpperCase()}),e}const r=o("/forgot-password"),a=o("/forgot-password","post"),n=o("/reset-password","post");export{a as e,r,n as u};
