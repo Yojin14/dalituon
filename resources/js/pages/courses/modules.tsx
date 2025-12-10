@@ -9,12 +9,11 @@ import { dashboard } from '@/routes';
 import { ModuleCard } from '@/components/modules/module-card';
 import { ArrowLeft, BookOpen } from 'lucide-react';
 import { ProgressBar } from '@/components/gamification/progress-bar';
+import { useParams } from 'react-router-dom';
 
-interface CourseModulesProps {
-    courseId: string;
-}
-
-export default function CourseModules({ courseId }: CourseModulesProps) {
+export default function CourseModules() {
+    const { id } = useParams<{ id: string }>();
+    const courseId = id || '';
     const course = getCourseById(courseId);
     const modules = getModulesByCourseId(courseId);
 

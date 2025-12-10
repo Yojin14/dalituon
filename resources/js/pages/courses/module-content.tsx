@@ -8,18 +8,12 @@ import {
 import { dashboard } from '@/routes';
 import { ArrowLeft, Play, CheckCircle2, Trophy, Gamepad2 } from 'lucide-react';
 import { AIChatWidget } from '@/components/ai-assistant/ai-chat-widget';
+import { useParams } from 'react-router-dom';
 
-interface ModuleContentProps {
-    courseId: string;
-    moduleId: string;
-}
-
-export default function ModuleContent({
-    courseId,
-    moduleId,
-}: ModuleContentProps) {
-    const course = getCourseById(courseId);
-    const module = getModuleById(courseId, moduleId);
+export default function ModuleContent() {
+    const { courseId, moduleId } = useParams<{ courseId: string; moduleId: string }>();
+    const course = getCourseById(courseId || '');
+    const module = getModuleById(courseId || '', moduleId || '');
 
     if (!course || !module) {
         return (

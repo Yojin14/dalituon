@@ -5,13 +5,11 @@ import { getCourseById, dummyCourses } from '@/data/dummy-data';
 import { dashboard } from '@/routes';
 import { BookOpen, Clock, User, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { ProgressBar } from '@/components/gamification/progress-bar';
+import { useParams } from 'react-router-dom';
 
-interface CourseShowProps {
-    courseId: string;
-}
-
-export default function CourseShow({ courseId }: CourseShowProps) {
-    const course = getCourseById(courseId);
+export default function CourseShow() {
+    const { id } = useParams<{ id: string }>();
+    const course = getCourseById(id || '');
 
     if (!course) {
         return (

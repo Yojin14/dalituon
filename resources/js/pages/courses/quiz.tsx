@@ -18,11 +18,7 @@ import { useEffect, useState } from 'react';
 import { PointsDisplay } from '@/components/gamification/points-display';
 import { MatchingGame } from '@/components/games/matching-game';
 import { OrderingGame } from '@/components/games/ordering-game';
-
-interface QuizProps {
-    courseId: string;
-    moduleId: string;
-}
+import { useParams } from 'react-router-dom';
 
 interface QuizQuestion {
     id: string;
@@ -77,9 +73,10 @@ const dummyQuizQuestions: QuizQuestion[] = [
     },
 ];
 
-export default function Quiz({ courseId, moduleId }: QuizProps) {
-    const course = getCourseById(courseId);
-    const module = getModuleById(courseId, moduleId);
+export default function Quiz() {
+    const { courseId, moduleId } = useParams<{ courseId: string; moduleId: string }>();
+    const course = getCourseById(courseId || '');
+    const module = getModuleById(courseId || '', moduleId || '');
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState<
