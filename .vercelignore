@@ -1,0 +1,16 @@
+/.phpunit.cache
+/bootstrap/ssr
+/node_modules
+/storage
+/vendor
+/tests
+.env
+.env.*
+.phpunit.result.cache
+composer.json
+composer.lock
+phpunit.xml
+artisan
+*.php
+!public/index.php
+
